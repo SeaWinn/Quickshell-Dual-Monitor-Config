@@ -6,18 +6,12 @@ Rectangle {
   id: root
   property var colors 
 
-  anchors {
-    bottom: parent.bottom
-    left: parent.left
-    leftMargin: rowBackground.width
-  }
-
   topLeftRadius: 5
   topRightRadius: 5
   bottomLeftRadius: 0
   bottomRightRadius: 0
 
-  implicitHeight: hoverHandler.containsMouse? 50 : 20
+  implicitHeight: hoverHandler.containsMouse? 38 : 20
   implicitWidth: 100
   color: colors.background
 
@@ -34,35 +28,72 @@ Rectangle {
     }
   }
 
-  Text {
-    id: clock
-    anchors.centerIn: parent
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    font {
-        pixelSize: 14
-        bold: true
-    }
+  Column {
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    spacing: 0
 
-    color: colors.color1Light
+    Text {
+      id: clock
+      anchors.horizontalCenter: parent.horizontalCenter
 
-    Process {
-      id: dateProcess
+      font {
+          pixelSize: 14
+          bold: true
+      }
 
-      command: ["sh", "-c", "date +\"%H:%M:%S\""]
-      running: true
+      color: colors.color1Light
 
-      stdout: StdioCollector {
-        onStreamFinished: clock.text = this.text
+      Process {
+        id: clockProcess
+
+        command: ["sh", "-c", "date +\"%H:%M:%S\""]
+        running: true
+
+        stdout: StdioCollector {
+          onStreamFinished: clock.text = this.text
+        }
       }
     }
+    Text {
+      id: date
+      anchors.horizontalCenter: parent.horizontalCenter
+
+      width: parent.width // makes the text width the same as the parent to then align the text 
+      horizontalAlignment: Text.AlignHCenter
+
+      font {
+        pixelSize: 14
+        bold: true
+      }
+
+      color: colors.color1Light
+
+      Process {
+        id: dateProcess
+
+        command: ["sh", "-c", "LC_TIME=fr_FR.UTF-8 date '+%a %d %b'"]
+        running: true
+
+        stdout: StdioCollector {
+          onStreamFinished: date.text = this.text
+        }
+      }
+    }
+  }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   Timer {
     interval: 1000
-
     running: true
-
     repeat: true
-
-    onTriggered: dateProcess.running = true
-  }
+    onTriggered: {
+      dateProcess.running = true
+      clockProcess.running = true
+    }
   }
 }
