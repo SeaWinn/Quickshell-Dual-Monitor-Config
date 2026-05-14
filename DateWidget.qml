@@ -11,7 +11,7 @@ Rectangle {
   bottomLeftRadius: 0
   bottomRightRadius: 0
 
-  implicitHeight: hoverHandler.containsMouse? 38 : 20
+  implicitHeight: hoverHandler.containsMouse? 50 : 20
   implicitWidth: 100
   color: colors.background
 
@@ -23,7 +23,7 @@ Rectangle {
 
   Behavior on implicitHeight {
       NumberAnimation {
-        duration: 400
+        duration: 250
         easing.type: Easing.InOutCubic
     }
   }
@@ -33,6 +33,8 @@ Rectangle {
   Column {
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
+    anchors.topMargin: 3
+    spacing: 3
 
     Text {
       id: clock
@@ -56,6 +58,17 @@ Rectangle {
         }
       }
     }
+
+    Rectangle {
+        anchors.horizontalCenter: parent.horizontalCenter
+        
+        implicitWidth: root.width / 1.25
+        implicitHeight: 2
+        radius: 100
+
+        color: colors.color1
+    }
+
     Text {
       id: date
       anchors.horizontalCenter: parent.horizontalCenter
@@ -68,7 +81,7 @@ Rectangle {
         bold: true
       }
 
-      color: colors.color1Dark
+      color: colors.color2
 
       Process {
         id: dateProcess
@@ -82,7 +95,6 @@ Rectangle {
       }
     }
   }
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

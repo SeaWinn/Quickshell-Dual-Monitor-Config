@@ -31,6 +31,7 @@ ShellRoot {
                     Region { item: dateWidget },
                     Region { item: workspacesWidget},
                     Region { item: systemTray},
+                    Region { item: scrcpyWidget},
                 ]
             }
 
@@ -40,7 +41,7 @@ ShellRoot {
                 right: true
             }
 
-            implicitHeight: 200
+            implicitHeight: 1000
             color: "transparent"
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,6 +54,17 @@ ShellRoot {
                     bottom: parent.bottom
                     left: parent.left
                     leftMargin: workspacesWidget.width
+                }
+            }
+
+            Scrcpy {
+                id: scrcpyWidget
+                colors: pywal
+
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    leftMargin: workspacesWidget.width - dateWidget.width * 2.5
                 }
             }
 

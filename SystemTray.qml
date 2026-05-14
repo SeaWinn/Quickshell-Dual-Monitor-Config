@@ -4,6 +4,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
+
+
 Rectangle{
 
     width: trayRow.width + 10
@@ -14,7 +16,7 @@ Rectangle{
     bottomLeftRadius: 0
     bottomRightRadius: 0
     
-    color: pywal.color0Light
+    color: pywal.background
 
     Row {
         id: trayRow
@@ -36,9 +38,10 @@ Rectangle{
                     onClicked: (mouse) => {
                         if (mouse.button === Qt.LeftButton) {
                             modelData.activate()
-                        } else {
-                            var coords = trayIcon.mapToItem(bar.contentItem, mouse.x, mouse.y);
-                            modelData.display(bar, coords.x, coords.y);
+                        } 
+                        else if (mouse.button === Qt.RightButton) {
+                            var coords = trayIcon.mapToItem(bar.contentItem, mouse.x, mouse.y)
+                            modelData.display(bar, coords.x, coords.y)
                         }
                     }
                 }

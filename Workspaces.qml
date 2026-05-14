@@ -32,19 +32,31 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 Rectangle {
                     id: workspaceRect
+
                     width: 50
                     height: parent.height
                     topLeftRadius: 5
                     topRightRadius: 5
                     bottomLeftRadius: 0
                     bottomRightRadius: 0
-                    color: (index + 1 === Hyprland.focusedWorkspace.id) ? colors.color1Light : colors.color1Dark
-                    MouseArea {
-                    anchors.fill: parent
+                    color: (index + 1 === Hyprland.focusedWorkspace.id) ? colors.color1Light : (hoverHandler.containsMouse) ? colors.color1 : colors.color1Dark
 
-                    onClicked: Hyprland.dispatch(`hl.dsp.focus({ workspace = ${index + 1}})`)
+                    MouseArea {
+                        id: hoverHandler
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        hoverEnabled: true
+                        onClicked: Hyprland.dispatch(`hl.dsp.focus({ workspace = ${index + 1}})`)
+                    }
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 200
+                            easing.type: Easing.InOutCubic
+                        }
                     }
                 }
+
             }
         }
     }
