@@ -33,7 +33,6 @@ Rectangle {
   Column {
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
-    spacing: 0
 
     Text {
       id: clock
@@ -44,8 +43,8 @@ Rectangle {
           bold: true
       }
 
-      color: colors.color1Light
-
+      color: colors.color1
+      
       Process {
         id: clockProcess
 
@@ -69,7 +68,7 @@ Rectangle {
         bold: true
       }
 
-      color: colors.color1Light
+      color: colors.color1Dark
 
       Process {
         id: dateProcess
