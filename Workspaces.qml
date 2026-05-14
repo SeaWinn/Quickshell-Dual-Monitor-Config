@@ -27,24 +27,25 @@ Rectangle {
             model: 10
         
             Item {
-            width: (index === 4) ? 50 + 6 : 50 
-            height: 8
-            anchors.bottom: parent.bottom
-            Rectangle {
-                id: workspaceRect
-                width: 50
-                height: parent.height
-                topLeftRadius: 5
-                topRightRadius: 5
-                bottomLeftRadius: 0
-                bottomRightRadius: 0
-                color: (index + 1 === Hyprland.focusedWorkspace.id) ? colors.color1Light : colors.color1Dark
-                MouseArea {
-                anchors.fill: parent
-                onClicked: Hyprland.dispatch(`workspace ${index + 1}`)
+                width: (index === 4) ? 50 + 6 : 50 
+                height: 8
+                anchors.bottom: parent.bottom
+                Rectangle {
+                    id: workspaceRect
+                    width: 50
+                    height: parent.height
+                    topLeftRadius: 5
+                    topRightRadius: 5
+                    bottomLeftRadius: 0
+                    bottomRightRadius: 0
+                    color: (index + 1 === Hyprland.focusedWorkspace.id) ? colors.color1Light : colors.color1Dark
+                    MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: Hyprland.dispatch(`hl.dsp.focus({ workspace = ${index + 1}})`)
+                    }
                 }
             }
-            }
-      }
+        }
     }
 }
